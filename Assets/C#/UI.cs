@@ -14,6 +14,8 @@ public class UI : MonoBehaviour
     //private Slider healthSlider;
     public RectTransform healthBar;
     private float healthBarWidth;
+    public static bool gamePaused = false;
+    public GameObject pauseMenuUI;
 
     // Start is called before the first frame update
     void Start()
@@ -29,6 +31,7 @@ public class UI : MonoBehaviour
     {
         playerBulletText.text = String.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);                
         healthBar.offsetMax = new Vector2(-(1 - (float)playerPlayer.health / playerPlayer.maxHealth) * healthBarWidth, 0);
+        PauseMenu();
     }
 
     IEnumerator Timer()
@@ -42,4 +45,31 @@ public class UI : MonoBehaviour
             timerText.text = time.ToString(@"mm\:ss");
         }
     }
+
+    public void PauseMenu()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (gamePaused)
+            {
+                Resume();
+            }
+            else
+            {
+                Pause();
+            }
+        }
+    }
+
+    void Resume()
+    {
+
+    }
+
+    void Pause()
+    {
+        pauseMenuUI.SetActive(true);
+    }
 }
+
+
