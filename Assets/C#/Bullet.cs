@@ -16,4 +16,14 @@ public class Bullet : MonoBehaviour
     {
         
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            collision.collider.GetComponent<Enemy>().health -= damage;
+            collision.collider.GetComponent<Enemy>().state = EnemyState.Chase;
+        }
+        Destroy(this.gameObject);
+    }
 }

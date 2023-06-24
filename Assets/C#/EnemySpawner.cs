@@ -10,7 +10,7 @@ public class Wave
     public int enemyCount;
     public GameObject Enemy;
     public int spawned;
-    public float lastStep = 0;
+    public float lastStep;
 }
 public class EnemySpawner : MonoBehaviour
 {
@@ -25,6 +25,7 @@ public class EnemySpawner : MonoBehaviour
         foreach (var wave in waves)
         {
             wave.spawned = wave.enemyCount;
+            wave.lastStep = wave.startTime;
         }
     }
 
@@ -36,14 +37,18 @@ public class EnemySpawner : MonoBehaviour
         {
             if (wave.startTime < gameTime && wave.startTime + wave.duration > gameTime)
             {
-                if (gameTime - wave.lastStep > wave.duration/wave.enemyCount && wave.spawned > 0)
+                var delT = gameTime - wave.lastStep;
+                var enemiesPerSecond = wave.enemyCount / wave.duration;
+
+                if (wave.spawned > 0)
                 {
-                    for (int i = 0; i < Mathf.Round((gameTime - wave.lastStep)/(wave.duration / wave.enemyCount)); i++)
+                    var enemiesToSpawn = Mathf.RoundToInt(delT * enemiesPerSecond);
+                    for (int i = 0; i < enemiesToSpawn; i++)
                     {
                         spawn(wave.Enemy);
                         wave.spawned -= 1;
                     }
-                    wave.lastStep = gameTime;
+                    wave.lastStep += enemiesToSpawn/enemiesPerSecond;
                 }
                 else if (wave.spawned > 0 && gameTime > wave.startTime + wave.duration)
                 {
