@@ -5,35 +5,25 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float speed = 1;
+    public int scrap = 0;
     private Rigidbody2D rb;
+    private Vector2 moveDirection;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        Vector2 force = new Vector2();
-        if (Input.GetKey(KeyCode.W))
-        {
-            force.y = speed;
-        }
-        if (Input.GetKey(KeyCode.S))
-        {
-            force.y = -speed;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            force.x = speed;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            force.x = -speed;
-        }
+        float moveX = Input.GetAxisRaw("Horizontal");
+        float moveY = Input.GetAxisRaw("Vertical");
 
-        rb.AddForce(force);
+        moveDirection = new Vector2(moveX, moveY).normalized;
+    }
+    // Update is called once per frame
+    private void FixedUpdate()
+    {
+        rb.velocity = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
     }
 }

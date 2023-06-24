@@ -6,10 +6,12 @@ public class Gun : MonoBehaviour
 {
     public GameObject bullet;
     public float bulletSpeed = 10;
+    public float fireDelay;
+    private float lastFired;
     // Start is called before the first frame update
     void Start()
     {
-
+        lastFired = Time.realtimeSinceStartup;
     }
 
     // Update is called once per frame
@@ -22,11 +24,12 @@ public class Gun : MonoBehaviour
         if (Vector2.Distance(mousePosition, transform.position) >= 0.05f)
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0) && Time.realtimeSinceStartup - lastFired >= fireDelay)
         {
+            lastFired = Time.realtimeSinceStartup;
             GameObject newBullet = Instantiate(bullet);
             Rigidbody2D bulletRb = newBullet.GetComponent<Rigidbody2D>();
-            newBullet.transform.position = transform.position + transform.right * 1.3f;
+            newBullet.transform.position = transform.position + transform.right * 1f;
             newBullet.transform.rotation = transform.rotation;
             bulletRb.AddForce(bulletSpeed * (mousePosition - transform.position).normalized, ForceMode2D.Impulse);
         }
