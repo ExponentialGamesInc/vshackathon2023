@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class Wave
 {
     public float startTime;
@@ -35,9 +36,21 @@ public class EnemySpawner : MonoBehaviour
         {
             if (wave.startTime < gameTime && wave.startTime + wave.duration > gameTime)
             {
-                if (gameTime - wave.lastStep > wave.duration/wave.enemyCount)
+                if (gameTime - wave.lastStep > wave.duration/wave.enemyCount && wave.spawned > 0)
                 {
+                    for (int i = 0; i < Mathf.Round((gameTime - wave.lastStep)/(wave.duration / wave.enemyCount)); i++)
+                    {
+                        spawn(wave.Enemy);
+                        wave.spawned -= 1;
+                    }
                     wave.lastStep = gameTime;
+                }
+                else if (wave.spawned > 0 && gameTime > wave.startTime + wave.duration)
+                {
+                    for (int i = 0; i < wave.spawned; i++)
+                    {
+                        spawn(wave.Enemy);
+                    }
                 }
             }
         }
@@ -50,6 +63,6 @@ public class EnemySpawner : MonoBehaviour
         var dy = Mathf.Sin(angle);
 
         var newEnemy = Instantiate(enemy);
-        newEnemy.transform.position = new Vector2(dx, dy) * spawnDistance + player.transform.position;
+        newEnemy.transform.position = new Vector3(dx, dy, 0) * spawnDistance + player.transform.position;
     }
 }
