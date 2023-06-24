@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour
 {
     public int damage = 15;
     GameObject player;
+    public LayerMask enemyMask;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,17 +20,23 @@ public class Bullet : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
+
+        var enemies = Physics2D.OverlapCircleAll(transform.position, 5, enemyMask);
+        foreach (var enemy in enemies)
+        {
+            if (Vector3.Distance(transform.position, enemy.transform.position) < 0.7f)
+            {
+                var enemyEnnemy = enemy.GetComponent<Enemy>();
+                enemyEnnemy.health -= damage;
+                enemyEnnemy.state = EnemyState.Chase;
+                enemyEnnemy.Alert(1);
+                Destroy(this.gameObject);
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Enemy"))
-        {
-            var enemy = collision.collider.GetComponent<Enemy>();
-            enemy.health -= damage;
-            enemy.state = EnemyState.Chase;
-            enemy.Alert(1);
-        }
         Destroy(this.gameObject);
     }
 }

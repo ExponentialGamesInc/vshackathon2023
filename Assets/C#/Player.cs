@@ -8,11 +8,15 @@ public class Player : MonoBehaviour
     public int scrap = 0;
     private Rigidbody2D rb;
     private Vector2 moveDirection;
-
+    public Gun gun;
+    public int maxHealth;
+    public int health;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        gun = GetComponentInChildren<Gun>();
+        health = maxHealth;
     }
     private void Update()
     {
