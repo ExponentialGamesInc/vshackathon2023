@@ -11,6 +11,7 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI playerBulletText;
     private GameObject player;
     private Player playerPlayer;
+    [SerializeField]
     public Slider healthSlider;
 
     // Start is called before the first frame update
@@ -19,13 +20,14 @@ public class UI : MonoBehaviour
         StartCoroutine(Timer());
         playerPlayer = FindObjectOfType<Player>();
         player = playerPlayer.gameObject;
+        healthSlider = GetComponent<Slider>();
     }
 
     // Update is called once per frame
     void Update()
     {
         playerBulletText.text = String.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);
-        healthSlider.value = 100 * (playerPlayer.health / playerPlayer.maxHealth);
+        healthSlider.value = playerPlayer.health / playerPlayer.maxHealth;
     }
 
     IEnumerator Timer()
