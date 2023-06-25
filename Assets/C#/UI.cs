@@ -18,6 +18,8 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI scrapText;
     public GameObject pauseMenuUI;
     public GameObject baseMenuUI;
+    public TextMeshProUGUI baseUIScrapText;
+    public TextMeshProUGUI pointsText;
 
     // Start is called before the first frame update
     void Start()
@@ -31,10 +33,39 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (gamePaused)
+        {
+            Time.timeScale = 0f;
+        }
+        else
+        {
+            Time.timeScale = 1f;
+        }
         playerBulletText.text = string.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);
         healthBar.offsetMax = new Vector2(-(1 - (float)playerPlayer.health / playerPlayer.maxHealth) * healthBarWidth, 0);
         scrapText.text = string.Format("Scrap: {0}", playerPlayer.scrap);
+        pointsText.text = string.Format("Points: {0}", playerPlayer.points);
+        baseUIScrapText.text = string.Format("Scrap: {0}", playerPlayer.scrap);
         PauseMenu();
+
+        if (Input.GetKeyDown(KeyCode.E) && !pauseMenuUI.active)
+        {
+            if (Vector3.Distance(player.transform.position, new Vector3(0, 0, 0)) < 4.2f && !gamePaused)
+            {
+                baseMenuUI.SetActive(true);
+                gamePaused = !gamePaused;
+            }
+            else if (gamePaused)
+            {
+                baseMenuUI.SetActive(false);
+                gamePaused = !gamePaused;
+            }
+        }
+        if (Input.GetKeyDown(KeyCode.Escape) && baseMenuUI.active)
+        {
+            baseMenuUI.SetActive(false);
+            gamePaused = !gamePaused;
+        }
     }
 
     IEnumerator Timer()
@@ -51,7 +82,7 @@ public class UI : MonoBehaviour
 
     public void PauseMenu()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !baseMenuUI.active)
         {
             if (gamePaused)
             {
@@ -67,7 +98,6 @@ public class UI : MonoBehaviour
     public void Resume()
     {
         pauseMenuUI.SetActive(false);
-        Time.timeScale = 1.0f;
         gamePaused = false;
     }
 
@@ -75,7 +105,6 @@ public class UI : MonoBehaviour
     {
         pauseMenuUI.SetActive(true);
         baseMenuUI.SetActive(false);
-        Time.timeScale = 0f;
         gamePaused = true;
     }
 
@@ -88,4 +117,11 @@ public class UI : MonoBehaviour
     {
         Debug.Log("Quitting Game...");
     }
+
+    public void ConvertScrap()
+    {
+        playerPlayer.points += playerPlayer.scrap;
+        playerPlayer.scrap = 0;
+    }
+
 }

@@ -18,6 +18,7 @@ public class Player : MonoBehaviour
     public Gun gun;
     public int maxHealth;
     public int health;
+    public int points;
 
     public List<Texture> textures = new List<Texture>();
 
@@ -37,10 +38,18 @@ public class Player : MonoBehaviour
 
             moveDirection = new Vector2(moveX, moveY).normalized;
         }
+
     }
     // Update is called once per frame
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
+        if (!UI.gamePaused)
+        {
+            rb.velocity = new Vector2(moveDirection.x * speed, moveDirection.y * speed);
+        }
+        else
+        {
+            rb.velocity = Vector2.zero;
+        }
     }
 }
