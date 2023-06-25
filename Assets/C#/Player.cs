@@ -45,6 +45,14 @@ public class Player : MonoBehaviour
         if (!UI.gamePaused)
         {
             float moveX = Input.GetAxisRaw("Horizontal");
+            if (moveX == 1)
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
+            else if (moveX == -1)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
             float moveY = Input.GetAxisRaw("Vertical");
 
             moveDirection = new Vector2(moveX, moveY).normalized;
