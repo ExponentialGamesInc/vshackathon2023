@@ -13,8 +13,8 @@ public class Gun : MonoBehaviour
     public int ammo;
     public bool reloading;
     public int damage = 35;
-    public int explodeDamage = 5;
-    public int expldeRadius = 3;
+    public float explodeDamage = 5;
+    public float expldeRadius = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,6 +26,9 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        expldeRadius = damage * 0.1333333f;
+        explodeDamage = damage / 5;
+
         if (!UI.gamePaused)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -34,6 +37,7 @@ public class Gun : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             if (Vector2.Distance(mousePosition, transform.position) >= 0.05f)
                 transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
 
             if (Input.GetMouseButton(0) && Time.realtimeSinceStartup - lastFired >= fireDelay && ammo > 0 && !reloading)
             {

@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System;
 using UnityEngine.UIElements;
+using System.Net.NetworkInformation;
 
 public class UI : MonoBehaviour
 {
@@ -20,6 +21,19 @@ public class UI : MonoBehaviour
     public GameObject baseMenuUI;
     public TextMeshProUGUI baseUIScrapText;
     public TextMeshProUGUI pointsText;
+    [Header("Upgrades")]
+
+    public List<int> prices = new List<int>
+    {
+        30,
+        75,
+        250,
+        600,
+        1550,
+    };
+
+    public TextMeshProUGUI healthUpgradeText;
+    public TextMeshProUGUI damageUpgradeText;
 
     // Start is called before the first frame update
     void Start()
@@ -28,11 +42,14 @@ public class UI : MonoBehaviour
         playerPlayer = FindObjectOfType<Player>();
         player = playerPlayer.gameObject;
         healthBarWidth = healthBar.rect.width;
+        healthUpgradeText.text = string.Format("{0} -> {1}", playerPlayer.maxHealth, playerPlayer.healthUpgrades[0]);
+        damageUpgradeText.text = string.Format("{0} -> {1}", playerPlayer.gun.damage, playerPlayer.damageUpgrades[0]);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         if (gamePaused)
         {
             Time.timeScale = 0f;
@@ -124,4 +141,40 @@ public class UI : MonoBehaviour
         playerPlayer.scrap = 0;
     }
 
+    public void UpgradeHealth()
+    {
+        if (playerPlayer.healthUpgradeLevel == 4)
+            return;
+
+        var price = prices[playerPlayer.healthUpgradeLevel + 1];
+        if (playerPlayer.points < price)
+            return;
+
+        playerPlayer.points -= price;
+        playerPlayer.healthUpgradeLevel += 1;
+        playerPlayer.maxHealth = playerPlayer.healthUpgrades[playerPlayer.healthUpgradeLevel];
+        playerPlayer.health = playerPlayer.maxHealth;
+
+        if (playerPlayer.healthUpgradeLevel < 4)
+            healthUpgradeText.text = string.Format("{0} -> {1}", playerPlayer.maxHealth, playerPlayer.healthUpgrades[playerPlayer.healthUpgradeLevel + 1]);
+        else
+            healthUpgradeText.text = "Max";
+    }
+
+    public void UpgradeDamage()
+    {
+        if (playerPlayer.damageUpgradeLevel == 4) 
+            return;   
+
+        var price = prices[playerPlayer.damageUpgradeLevel + 1];
+        if (playerPlayer.points < price)
+            return;
+       
+        playerPlayer.points -= price;
+        playerPlayer.damageUpgradeLevel += 1;
+        playerPlayer.gun.damage = playerPlayer.damageUpgrades[playerPlayer.damageUpgradeLevel];
+
+        if (playerPlayer.damageUpgradeLevel < 4) damageUpgradeText.text = string.Format("{0} -> {1}", playerPlayer.gun.damage, playerPlayer.damageUpgrades[playerPlayer.damageUpgradeLevel + 1]);
+        else damageUpgradeText.text = "Max";
+    }
 }

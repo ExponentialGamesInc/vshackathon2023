@@ -21,8 +21,11 @@ public class Player : MonoBehaviour
     public int health;
     public int points;
 
-    public int healthUpgradeLevel;
-    public List<int> healthUpgrades = new List<int> {100, 150, 450, 700, 1500};
+    public int healthUpgradeLevel = -1;
+    public List<int> healthUpgrades = new List<int> {150, 200, 450, 700, 1500};
+
+    public int damageUpgradeLevel = -1;
+    public List<int> damageUpgrades = new List<int> { 23, 35, 85, 190, 450 };
 
 
     public List<Texture> textures = new List<Texture>();

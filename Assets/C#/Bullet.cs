@@ -6,8 +6,8 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int damage = 15;
-    public int explodeDamage = 5;
-    public int explodeRadius = 3;
+    public float explodeDamage = 5;
+    public float explodeRadius = 3;
     public LayerMask enemyMask;
     GameObject player;
     // Start is called before the first frame update
