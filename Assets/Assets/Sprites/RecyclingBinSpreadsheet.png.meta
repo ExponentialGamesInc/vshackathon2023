@@ -43,8 +43,8 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
-  spriteExtrude: 1
+  spriteMode: 2
+  spriteExtrude: 2
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
@@ -108,7 +108,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: RecyclingBinSpreadsheet_0
+      rect:
+        serializedVersion: 2
+        x: 57
+        y: 504
+        width: 374
+        height: 330
+      alignment: 9
+      pivot: {x: 0.46256685, y: 0.26666665}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b07e288a55aee7429ee7c0dbf655352
+      internalID: 856420961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RecyclingBinSpreadsheet_1
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 503
+        width: 374
+        height: 330
+      alignment: 9
+      pivot: {x: 0.47058824, y: 0.26666665}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b22b83413796e3545b85f030b1a78e84
+      internalID: -586581666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RecyclingBinSpreadsheet_2
+      rect:
+        serializedVersion: 2
+        x: 1182
+        y: 502
+        width: 419
+        height: 333
+      alignment: 9
+      pivot: {x: 0.5155131, y: 0.2762763}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c084d9ebb34d424088461ec62a1c9fe
+      internalID: 617499288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RecyclingBinSpreadsheet_3
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 2
+        width: 419
+        height: 333
+      alignment: 9
+      pivot: {x: 0.51789975, y: 0.2702703}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01fc4eb6890401e48b1a65858fae6cd8
+      internalID: 201724200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RecyclingBinSpreadsheet_4
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 1
+        width: 381
+        height: 449
+      alignment: 9
+      pivot: {x: 0.48293963, y: 0.20267262}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f72d5e1fd2e69ad498934e0b3cda9dd9
+      internalID: 1851196352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: RecyclingBinSpreadsheet_5
+      rect:
+        serializedVersion: 2
+        x: 1228
+        y: 0
+        width: 485
+        height: 444
+      alignment: 9
+      pivot: {x: 0.35257733, y: 0.20495497}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18b7a4781885fc74f8ff6ac071ef8c54
+      internalID: -1053334304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []
@@ -119,7 +245,13 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      RecyclingBinSpreadsheet_0: 856420961
+      RecyclingBinSpreadsheet_1: -586581666
+      RecyclingBinSpreadsheet_2: 617499288
+      RecyclingBinSpreadsheet_3: 201724200
+      RecyclingBinSpreadsheet_4: 1851196352
+      RecyclingBinSpreadsheet_5: -1053334304
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

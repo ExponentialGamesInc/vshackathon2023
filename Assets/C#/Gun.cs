@@ -13,8 +13,7 @@ public class Gun : MonoBehaviour
     public int ammo;
     public bool reloading;
     public int damage = 35;
-    public float explodeDamage = 5;
-    public float expldeRadius = 3;
+    public float explodeRadius = 3;
     // Start is called before the first frame update
     void Start()
     {
@@ -26,9 +25,7 @@ public class Gun : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        expldeRadius = damage * 0.1333333f;
-        explodeDamage = damage / 5;
-
+        explodeRadius = 3 + damage / 50;
         if (!UI.gamePaused)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -49,8 +46,7 @@ public class Gun : MonoBehaviour
                 newBullet.transform.rotation = transform.rotation;
 
                 newBullet.GetComponent<Bullet>().damage = damage;
-                newBullet.GetComponent<Bullet>().explodeDamage = explodeDamage;
-                newBullet.GetComponent<Bullet>().explodeRadius = expldeRadius;
+                newBullet.GetComponent<Bullet>().explodeRadius = explodeRadius;
 
                 bulletRb.AddForce(bulletSpeed * (mousePosition - transform.position).normalized, ForceMode2D.Impulse);
             }

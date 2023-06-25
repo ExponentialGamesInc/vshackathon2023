@@ -22,10 +22,13 @@ public class Player : MonoBehaviour
     public int points;
 
     public int healthUpgradeLevel = -1;
-    public List<int> healthUpgrades = new List<int> {150, 200, 450, 700, 1500};
+    public List<int> healthUpgrades = new List<int> { 150, 200, 450, 700, 1500};
 
     public int damageUpgradeLevel = -1;
     public List<int> damageUpgrades = new List<int> { 23, 35, 85, 190, 450 };
+
+    public int attackDelayUpgradeLevel = -1;
+    public List<float> attackDelayUpgrades = new List<float> { 0.23f, 0.2f, 0.18f, 0.12f, 0.08f};
 
 
     public List<Texture> textures = new List<Texture>();

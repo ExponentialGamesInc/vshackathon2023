@@ -34,6 +34,7 @@ public class UI : MonoBehaviour
 
     public TextMeshProUGUI healthUpgradeText;
     public TextMeshProUGUI damageUpgradeText;
+    public TextMeshProUGUI attackDelayUpgradeText;
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +43,9 @@ public class UI : MonoBehaviour
         playerPlayer = FindObjectOfType<Player>();
         player = playerPlayer.gameObject;
         healthBarWidth = healthBar.rect.width;
-        healthUpgradeText.text = string.Format("{0} -> {1}", playerPlayer.maxHealth, playerPlayer.healthUpgrades[0]);
-        damageUpgradeText.text = string.Format("{0} -> {1}", playerPlayer.gun.damage, playerPlayer.damageUpgrades[0]);
+        attackDelayUpgradeText.text = string.Format("{0} -> {1}\nprice: {2}", playerPlayer.gun.fireDelay, playerPlayer.attackDelayUpgrades[playerPlayer.attackDelayUpgradeLevel + 1], prices[playerPlayer.attackDelayUpgradeLevel + 1]);
+        healthUpgradeText.text = string.Format("{0} -> {1}\nprice: {2}", playerPlayer.maxHealth, playerPlayer.healthUpgrades[playerPlayer.healthUpgradeLevel + 1], prices[playerPlayer.healthUpgradeLevel + 1]);
+        damageUpgradeText.text = string.Format("{0} -> {1}\nprice: {2}", playerPlayer.gun.damage, playerPlayer.damageUpgrades[playerPlayer.damageUpgradeLevel + 1], prices[playerPlayer.damageUpgradeLevel + 1]);
     }
 
     // Update is called once per frame
@@ -156,7 +158,7 @@ public class UI : MonoBehaviour
         playerPlayer.health = playerPlayer.maxHealth;
 
         if (playerPlayer.healthUpgradeLevel < 4)
-            healthUpgradeText.text = string.Format("{0} -> {1}", playerPlayer.maxHealth, playerPlayer.healthUpgrades[playerPlayer.healthUpgradeLevel + 1]);
+            healthUpgradeText.text = string.Format("{0} -> {1}\nprice: {2}", playerPlayer.maxHealth, playerPlayer.healthUpgrades[playerPlayer.healthUpgradeLevel + 1], prices[playerPlayer.healthUpgradeLevel + 1]);
         else
             healthUpgradeText.text = "Max";
     }
@@ -174,7 +176,24 @@ public class UI : MonoBehaviour
         playerPlayer.damageUpgradeLevel += 1;
         playerPlayer.gun.damage = playerPlayer.damageUpgrades[playerPlayer.damageUpgradeLevel];
 
-        if (playerPlayer.damageUpgradeLevel < 4) damageUpgradeText.text = string.Format("{0} -> {1}", playerPlayer.gun.damage, playerPlayer.damageUpgrades[playerPlayer.damageUpgradeLevel + 1]);
+        if (playerPlayer.damageUpgradeLevel < 4) damageUpgradeText.text = string.Format("{0} -> {1}\nprice: {2}", playerPlayer.gun.damage, playerPlayer.damageUpgrades[playerPlayer.damageUpgradeLevel + 1], prices[playerPlayer.damageUpgradeLevel + 1]);
         else damageUpgradeText.text = "Max";
+    }
+
+    public void UpgradeAttackDelay()
+    {
+        if (playerPlayer.attackDelayUpgradeLevel == 4) 
+            return;
+
+        var price = prices[playerPlayer.attackDelayUpgradeLevel + 1];
+        if (playerPlayer.points < price)
+            return;
+
+        playerPlayer.points -= price;
+        playerPlayer.attackDelayUpgradeLevel += 1;
+        playerPlayer.gun.fireDelay = playerPlayer.attackDelayUpgrades[playerPlayer.attackDelayUpgradeLevel];
+
+        if (playerPlayer.attackDelayUpgradeLevel < 4) attackDelayUpgradeText.text = string.Format("{0} -> {1}\nprice: {2}", playerPlayer.gun.fireDelay, playerPlayer.attackDelayUpgrades[playerPlayer.attackDelayUpgradeLevel + 1], prices[playerPlayer.attackDelayUpgradeLevel + 1]);
+        else attackDelayUpgradeText.text = "Max";
     }
 }
