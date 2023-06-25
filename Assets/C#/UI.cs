@@ -29,7 +29,7 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerBulletText.text = String.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);                
+        playerBulletText.text = String.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);
         healthBar.offsetMax = new Vector2(-(1 - (float)playerPlayer.health / playerPlayer.maxHealth) * healthBarWidth, 0);
         PauseMenu();
     }
@@ -61,15 +61,27 @@ public class UI : MonoBehaviour
         }
     }
 
-    void Resume()
+    public void Resume()
     {
-
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1.0f;
+        gamePaused = false;
     }
 
     void Pause()
     {
         pauseMenuUI.SetActive(true);
+        Time.timeScale = 0f;
+        gamePaused = true;
+    }
+
+    public void LoadMenu()
+    {
+        Debug.Log("Loading Menu...");
+    }
+
+    public void QuitGame()
+    {
+        Debug.Log("Quitting Game...");
     }
 }
-
-

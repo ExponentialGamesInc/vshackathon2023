@@ -31,6 +31,7 @@ public class Scrap : MonoBehaviour
             float t = time / duration;
             t = t * t * (3f - 2f * t); // Smooth Step easing formula
             transform.position = Vector3.Lerp(startPosition, target.position, t);
+            
             time += Time.deltaTime;
             if (time >= duration)
             {

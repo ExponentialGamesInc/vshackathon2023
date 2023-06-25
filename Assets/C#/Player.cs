@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class Texture
+{
+    public SpriteRenderer renderer;
+    public int x;
+    public int y;
+}
 public class Player : MonoBehaviour
 {
     public float speed = 1;
@@ -11,6 +18,9 @@ public class Player : MonoBehaviour
     public Gun gun;
     public int maxHealth;
     public int health;
+
+    public List<Texture> textures = new List<Texture>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,10 +30,13 @@ public class Player : MonoBehaviour
     }
     private void Update()
     {
-        float moveX = Input.GetAxisRaw("Horizontal");
-        float moveY = Input.GetAxisRaw("Vertical");
+        if (!UI.gamePaused)
+        {
+            float moveX = Input.GetAxisRaw("Horizontal");
+            float moveY = Input.GetAxisRaw("Vertical");
 
-        moveDirection = new Vector2(moveX, moveY).normalized;
+            moveDirection = new Vector2(moveX, moveY).normalized;
+        }
     }
     // Update is called once per frame
     private void FixedUpdate()

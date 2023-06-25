@@ -1,12 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
     public int damage = 15;
-    GameObject player;
+    public int explodeDamage = 5;
+    public int explodeRadius = 3;
     public LayerMask enemyMask;
+    GameObject player;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,27 +19,33 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) > 50)
+        if (Vector3.Distance(transform.position, player.transform.position) > 40)
         {
             Destroy(this.gameObject);
-        }
-
-        var enemies = Physics2D.OverlapCircleAll(transform.position, 5, enemyMask);
-        foreach (var enemy in enemies)
-        {
-            if (Vector3.Distance(transform.position, enemy.transform.position) < 0.7f)
-            {
-                var enemyEnnemy = enemy.GetComponent<Enemy>();
-                enemyEnnemy.health -= damage;
-                enemyEnnemy.state = EnemyState.Chase;
-                enemyEnnemy.Alert(1);
-                Destroy(this.gameObject);
-            }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (collision.collider.CompareTag("Enemy"))
+        {
+            var hits = Physics2D.OverlapCircleAll(transform.position, explodeRadius, enemyMask.value).ToList();
+            hits.Remove(collision.collider);
+            var enemyEnnemy = collision.collider.GetComponent<Enemy>();
+
+            foreach (var enemy in hits)
+            {
+                enemyEnnemy = enemy.GetComponent<Enemy>();
+                enemyEnnemy.health -= damage;
+
+            }
+
+            enemyEnnemy = collision.collider.GetComponent<Enemy>();
+            enemyEnnemy.health -= damage;
+            enemyEnnemy.state = EnemyState.Chase;
+            enemyEnnemy.Alert(1);
+        }
+
         Destroy(this.gameObject);
     }
 }
