@@ -9,6 +9,7 @@ public class Texture
     public int x;
     public int y;
 }
+
 public class Player : MonoBehaviour
 {
     public float speed = 1;
@@ -19,6 +20,10 @@ public class Player : MonoBehaviour
     public int maxHealth;
     public int health;
     public int points;
+
+    public int healthUpgradeLevel;
+    public List<int> healthUpgrades = new List<int> {100, 150, 450, 700, 1500};
+
 
     public List<Texture> textures = new List<Texture>();
 
