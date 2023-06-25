@@ -97,6 +97,11 @@ public class Enemy : MonoBehaviour
             state = EnemyState.Chase;
             Alert(1);
         }
+
+        if (collision.collider.CompareTag("Base"))
+        {
+            StartCoroutine(BaseChomp());
+        }
     }
 
     public void Alert(int ch)
@@ -112,13 +117,27 @@ public class Enemy : MonoBehaviour
             hitEnemy.Alert(ch + 1);
         }
     }
+    IEnumerator BaseChomp()
+    {
+        while (Vector3.Distance(transform.position, FindObjectOfType<Base>().transform.position) < 3.2f)
+        {
+            yield return new WaitForSeconds(attackDelay);
+            if (Vector3.Distance(transform.position, FindObjectOfType<Base>().transform.position) < 3.2f)
+            {
+                FindObjectOfType<Base>().health -= damage;
+            }
+        }
+    }
 
     IEnumerator Chomp()
     {
         while (Vector3.Distance(transform.position, FindObjectOfType<Player>().transform.position) < 2)
         {
             yield return new WaitForSeconds(attackDelay);
-            FindObjectOfType<Player>().health -= damage;
+            if (Vector3.Distance(transform.position, FindObjectOfType<Player>().transform.position) < 2)
+            {
+                FindObjectOfType<Player>().health -= damage;
+            }
         }
     }
 }

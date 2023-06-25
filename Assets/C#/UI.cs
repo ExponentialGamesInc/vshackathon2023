@@ -15,7 +15,9 @@ public class UI : MonoBehaviour
     public RectTransform healthBar;
     private float healthBarWidth;
     public static bool gamePaused = false;
+    public TextMeshProUGUI scrapText;
     public GameObject pauseMenuUI;
+    public GameObject baseMenuUI;
 
     // Start is called before the first frame update
     void Start()
@@ -29,8 +31,9 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerBulletText.text = String.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);
+        playerBulletText.text = string.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);
         healthBar.offsetMax = new Vector2(-(1 - (float)playerPlayer.health / playerPlayer.maxHealth) * healthBarWidth, 0);
+        scrapText.text = string.Format("Scrap: {0}", playerPlayer.scrap);
         PauseMenu();
     }
 
@@ -59,7 +62,7 @@ public class UI : MonoBehaviour
                 Pause();
             }
         }
-    }
+    }    
 
     public void Resume()
     {
@@ -71,6 +74,7 @@ public class UI : MonoBehaviour
     void Pause()
     {
         pauseMenuUI.SetActive(true);
+        baseMenuUI.SetActive(false);
         Time.timeScale = 0f;
         gamePaused = true;
     }
