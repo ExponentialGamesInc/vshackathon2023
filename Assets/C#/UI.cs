@@ -8,6 +8,7 @@ using System.Net.NetworkInformation;
 
 public class UI : MonoBehaviour
 {
+    public TextMeshProUGUI hitnText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI playerBulletText;
     private GameObject player;
@@ -59,6 +60,7 @@ public class UI : MonoBehaviour
         {
             Time.timeScale = 1f;
         }
+
         playerBulletText.text = string.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);
         healthBar.offsetMax = new Vector2(-(1 - (float)playerPlayer.health / playerPlayer.maxHealth) * healthBarWidth, 0);
         scrapText.text = string.Format("Scrap: {0}", playerPlayer.scrap);
@@ -85,9 +87,11 @@ public class UI : MonoBehaviour
             FindObjectOfType<Recycler>().ToggleAnimation(false);
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
+        hitnText.gameObject.SetActive(false);
+
+        if (Vector3.Distance(player.transform.position, new Vector3(0, 0, 0)) < 4.2f && !baseMenuUI.active)
         {
-            gamePaused = !gamePaused;
+            hitnText.gameObject.SetActive(true);
         }
     }
 
@@ -105,7 +109,7 @@ public class UI : MonoBehaviour
 
     public void PauseMenu()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && !baseMenuUI.active)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (gamePaused)
             {
@@ -128,6 +132,7 @@ public class UI : MonoBehaviour
     {
         pauseMenuUI.SetActive(true);
         baseMenuUI.SetActive(false);
+        FindObjectOfType<Recycler>().ToggleAnimation(false);
         gamePaused = true;
     }
 
