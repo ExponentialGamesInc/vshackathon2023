@@ -9,23 +9,9 @@ public class Recycler : MonoBehaviour
     {
         animator.SetBool("inTrigger", false);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            animator.SetBool("inTrigger", true);
-        }
-
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            animator.SetBool("inTrigger", false);
-            Debug.Log("works");
-        }
-    }
-
     
+    public void ToggleAnimation(bool toggle)
+    {
+        animator.SetBool("inTrigger", toggle);
+    }
 }

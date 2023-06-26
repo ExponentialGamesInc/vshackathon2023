@@ -16,7 +16,7 @@ public class Splitter : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    private void OnDisable()
     {
         print("Destroying...");
         Split();

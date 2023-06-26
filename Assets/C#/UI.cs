@@ -65,18 +65,26 @@ public class UI : MonoBehaviour
 
         PauseMenu();
 
-        // if (Input.GetKeyDown(KeyCode.E) && !pauseMenuUI.active)
-        // {
-        if (Vector3.Distance(player.transform.position, new Vector3(0, 0, 0)) < 4.2f && !gamePaused)
+        if (Input.GetKeyDown(KeyCode.E) && !pauseMenuUI.active)
         {
-            baseMenuUI.SetActive(true);
-
+            if (Vector3.Distance(player.transform.position, new Vector3(0, 0, 0)) < 4.2f && !baseMenuUI.active)
+            {
+                baseMenuUI.SetActive(true);
+                FindObjectOfType<Recycler>().ToggleAnimation(true);
+            }
+            else
+            {
+                baseMenuUI.SetActive(false);
+                FindObjectOfType<Recycler>().ToggleAnimation(false);
+            }
         }
-        else
+
+        if (Vector3.Distance(player.transform.position, new Vector3(0, 0, 0)) >= 4.2f)
         {
             baseMenuUI.SetActive(false);
+            FindObjectOfType<Recycler>().ToggleAnimation(false);
         }
-      //  }
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             gamePaused = !gamePaused;
