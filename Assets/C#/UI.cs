@@ -19,8 +19,7 @@ public class UI : MonoBehaviour
     public TextMeshProUGUI scrapText;
     public GameObject pauseMenuUI;
     public GameObject baseMenuUI;
-    public TextMeshProUGUI baseUIScrapText;
-    public TextMeshProUGUI pointsText;
+
     [Header("Upgrades")]
 
     public List<int> prices = new List<int>
@@ -63,26 +62,23 @@ public class UI : MonoBehaviour
         playerBulletText.text = string.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);
         healthBar.offsetMax = new Vector2(-(1 - (float)playerPlayer.health / playerPlayer.maxHealth) * healthBarWidth, 0);
         scrapText.text = string.Format("Scrap: {0}", playerPlayer.scrap);
-        pointsText.text = string.Format("Points: {0}", playerPlayer.points);
-        baseUIScrapText.text = string.Format("Scrap: {0}", playerPlayer.scrap);
+
         PauseMenu();
 
-        if (Input.GetKeyDown(KeyCode.E) && !pauseMenuUI.active)
+        // if (Input.GetKeyDown(KeyCode.E) && !pauseMenuUI.active)
+        // {
+        if (Vector3.Distance(player.transform.position, new Vector3(0, 0, 0)) < 4.2f && !gamePaused)
         {
-            if (Vector3.Distance(player.transform.position, new Vector3(0, 0, 0)) < 4.2f && !gamePaused)
-            {
-                baseMenuUI.SetActive(true);
-                gamePaused = !gamePaused;
-            }
-            else if (gamePaused)
-            {
-                baseMenuUI.SetActive(false);
-                gamePaused = !gamePaused;
-            }
+            baseMenuUI.SetActive(true);
+
         }
-        if (Input.GetKeyDown(KeyCode.Escape) && baseMenuUI.active)
+        else
         {
             baseMenuUI.SetActive(false);
+        }
+      //  }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
             gamePaused = !gamePaused;
         }
     }
@@ -137,22 +133,16 @@ public class UI : MonoBehaviour
         Debug.Log("Quitting Game...");
     }
 
-    public void ConvertScrap()
-    {
-        playerPlayer.points += playerPlayer.scrap;
-        playerPlayer.scrap = 0;
-    }
-
     public void UpgradeHealth()
     {
         if (playerPlayer.healthUpgradeLevel == 4)
             return;
 
         var price = prices[playerPlayer.healthUpgradeLevel + 1];
-        if (playerPlayer.points < price)
+        if (playerPlayer.scrap < price)
             return;
 
-        playerPlayer.points -= price;
+        playerPlayer.scrap -= price;
         playerPlayer.healthUpgradeLevel += 1;
         playerPlayer.maxHealth = playerPlayer.healthUpgrades[playerPlayer.healthUpgradeLevel];
         playerPlayer.health = playerPlayer.maxHealth;
@@ -169,10 +159,10 @@ public class UI : MonoBehaviour
             return;   
 
         var price = prices[playerPlayer.damageUpgradeLevel + 1];
-        if (playerPlayer.points < price)
+        if (playerPlayer.scrap < price)
             return;
        
-        playerPlayer.points -= price;
+        playerPlayer.scrap -= price;
         playerPlayer.damageUpgradeLevel += 1;
         playerPlayer.gun.damage = playerPlayer.damageUpgrades[playerPlayer.damageUpgradeLevel];
 
@@ -186,10 +176,10 @@ public class UI : MonoBehaviour
             return;
 
         var price = prices[playerPlayer.attackDelayUpgradeLevel + 1];
-        if (playerPlayer.points < price)
+        if (playerPlayer.scrap < price)
             return;
 
-        playerPlayer.points -= price;
+        playerPlayer.scrap -= price;
         playerPlayer.attackDelayUpgradeLevel += 1;
         playerPlayer.gun.fireDelay = playerPlayer.attackDelayUpgrades[playerPlayer.attackDelayUpgradeLevel];
 
