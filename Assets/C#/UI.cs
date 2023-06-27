@@ -5,6 +5,7 @@ using TMPro;
 using System;
 using UnityEngine.UIElements;
 using System.Net.NetworkInformation;
+using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
@@ -138,11 +139,15 @@ public class UI : MonoBehaviour
 
     public void LoadMenu()
     {
+        SceneManager.LoadScene("Main Menu");
+        gamePaused = false;
+        Time.timeScale = 1f;
         Debug.Log("Loading Menu...");
     }
 
     public void QuitGame()
     {
+        Application.Quit();
         Debug.Log("Quitting Game...");
     }
 
