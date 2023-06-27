@@ -10,6 +10,8 @@ public enum EnemyState
 }
 public class Enemy : MonoBehaviour
 {
+    public bool attacking;
+    public bool chomping;
     public int maxHealth;
     public int health;
     public float speed;
@@ -91,14 +93,14 @@ public class Enemy : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Player"))
+        if (collision.collider.CompareTag("Player") && !attacking)
         {
             StartCoroutine(Chomp());
             state = EnemyState.Chase;
             Alert(1);
         }
 
-        if (collision.collider.CompareTag("Base"))
+        if (collision.collider.CompareTag("Base") && !chomping)
         {
             StartCoroutine(BaseChomp());
         }
@@ -119,6 +121,7 @@ public class Enemy : MonoBehaviour
     }
     IEnumerator BaseChomp()
     {
+        chomping = true;
         while (Vector3.Distance(transform.position, FindObjectOfType<Base>().transform.position) < 3.2f)
         {
             yield return new WaitForSeconds(attackDelay);
@@ -127,10 +130,13 @@ public class Enemy : MonoBehaviour
                 FindObjectOfType<Base>().health -= damage;
             }
         }
+        chomping = false;
     }
 
     IEnumerator Chomp()
     {
+        attacking = true;
+
         while (Vector3.Distance(transform.position, FindObjectOfType<Player>().transform.position) < 2)
         {
             yield return new WaitForSeconds(attackDelay);
@@ -139,5 +145,7 @@ public class Enemy : MonoBehaviour
                 FindObjectOfType<Player>().health -= damage;
             }
         }
+        
+        attacking = false;
     }
 }
