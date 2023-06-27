@@ -6,6 +6,7 @@ using UnityEngine.Timeline;
 public class Gun : MonoBehaviour
 {
     public GameObject bullet;
+    public GameObject bulletSpawn;
     public float bulletSpeed = 10;
     public float fireDelay;
     private float lastFired;
@@ -44,7 +45,7 @@ public class Gun : MonoBehaviour
                 ammo -= 1;
                 GameObject newBullet = Instantiate(bullet);
                 Rigidbody2D bulletRb = newBullet.GetComponent<Rigidbody2D>();
-                newBullet.transform.position = transform.position + transform.right * 1f;
+                newBullet.transform.position = bulletSpawn.transform.position;
                 newBullet.transform.rotation = transform.rotation;
 
                 newBullet.GetComponent<Bullet>().damage = damage;
