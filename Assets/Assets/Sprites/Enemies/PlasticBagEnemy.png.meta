@@ -126,10 +126,10 @@ TextureImporter:
       name: PlasticBagEnemy_0
       rect:
         serializedVersion: 2
-        x: 74
-        y: 67
-        width: 364
-        height: 340
+        x: 66
+        y: 512
+        width: 370
+        height: 383
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,10 +147,10 @@ TextureImporter:
       name: PlasticBagEnemy_1
       rect:
         serializedVersion: 2
-        x: 573
-        y: 69
-        width: 364
-        height: 338
+        x: 566
+        y: 512
+        width: 370
+        height: 383
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -160,6 +160,27 @@ TextureImporter:
       bones: []
       spriteID: 384cf78aa065fde428a0fe3d63946f94
       internalID: 940019065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: PlasticBagEnemy_2
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 13
+        width: 370
+        height: 382
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f426fafd7f85e9409ee1e1c80b591d6
+      internalID: 1366507284
       vertices: []
       indices: 
       edges: []
@@ -177,6 +198,7 @@ TextureImporter:
     nameFileIdTable:
       PlasticBagEnemy_0: -112206001
       PlasticBagEnemy_1: 940019065
+      PlasticBagEnemy_2: 1366507284
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

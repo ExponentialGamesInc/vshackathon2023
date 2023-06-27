@@ -233,6 +233,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 4585666287450272840}
+  POPcontroller: {fileID: 9100000, guid: 7a28cbbc221ae7c45b11be012f6d2c69, type: 2}
+  CBAGcontroller: {fileID: 9100000, guid: 02086fc2a6a22344b987d917fac07618, type: 2}
+  PBAGcontroller: {fileID: 9100000, guid: 1eefdcf6919137d4e9d6aa0aac036635, type: 2}
 --- !u!1 &5462397097409071886
 GameObject:
   m_ObjectHideFlags: 0
