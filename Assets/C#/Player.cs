@@ -12,6 +12,7 @@ public class Texture
 
 public class Player : MonoBehaviour
 {
+    public Animator animator;
     public float speed = 1;
     public int scrap = 0;
     private Rigidbody2D rb;
@@ -33,6 +34,9 @@ public class Player : MonoBehaviour
 
     public List<Texture> textures = new List<Texture>();
 
+    Vector2 movement;
+
+    float facing;
     // Start is called before the first frame update
     void Start()
     {
@@ -44,20 +48,42 @@ public class Player : MonoBehaviour
     {
         if (!UI.gamePaused)
         {
-            float moveX = Input.GetAxisRaw("Horizontal");
-            if (moveX == 1)
+            movement.x = Input.GetAxisRaw("Horizontal");
+
+
+            if (movement.x == 1)
             {
+
                 GetComponent<SpriteRenderer>().flipX = false;
             }
-            else if (moveX == -1)
+            else if (movement.x == -1)
             {
                 GetComponent<SpriteRenderer>().flipX = true;
             }
-            float moveY = Input.GetAxisRaw("Vertical");
+            movement.y = Input.GetAxisRaw("Vertical");
 
-            moveDirection = new Vector2(moveX, moveY).normalized;
+            moveDirection = new Vector2(movement.x, movement.y).normalized;
+
+            animator.SetFloat("Horizontal", movement.x);
+            animator.SetFloat("Vertical", movement.y);
+            animator.SetFloat("Speed", movement.sqrMagnitude);
         }
 
+
+        if (movement.x != 0)
+        {
+            facing = 1;
+        }
+        if (movement.y > 0.01)
+        {
+            facing = 2;
+        }
+        if (movement.y < -0.01)
+        {
+            facing = 3;
+        }
+
+        animator.SetFloat("Idle", facing);
     }
     // Update is called once per frame
     private void FixedUpdate()
