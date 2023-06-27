@@ -96,6 +96,7 @@ GameObject:
   - component: {fileID: 4999727385036337258}
   - component: {fileID: 1015699211239152708}
   - component: {fileID: 6067770376250638169}
+  - component: {fileID: -779775501497049850}
   m_Layer: 6
   m_Name: Normal Trash
   m_TagString: Enemy
@@ -133,6 +134,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2362dec1c0e89418b0f126995e2b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attacking: 0
+  chomping: 0
   maxHealth: 70
   health: 0
   speed: 7
@@ -217,6 +220,27 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.8445557
+--- !u!95 &-779775501497049850
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3119715761003766636}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 0}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5462397097409071886
 GameObject:
   m_ObjectHideFlags: 0
