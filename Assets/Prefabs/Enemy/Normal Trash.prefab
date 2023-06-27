@@ -96,7 +96,7 @@ GameObject:
   - component: {fileID: 4999727385036337258}
   - component: {fileID: 1015699211239152708}
   - component: {fileID: 6067770376250638169}
-  - component: {fileID: -779775501497049850}
+  - component: {fileID: 6187900218679849964}
   m_Layer: 6
   m_Name: Normal Trash
   m_TagString: Enemy
@@ -220,27 +220,19 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.8445557
---- !u!95 &-779775501497049850
-Animator:
-  serializedVersion: 5
+--- !u!114 &6187900218679849964
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3119715761003766636}
   m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a77e7330dc05544482bf1f6de2d98ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animator: {fileID: 4585666287450272840}
 --- !u!1 &5462397097409071886
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,6 +327,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2836053785351104290}
   - component: {fileID: 7533376291884414355}
+  - component: {fileID: 4585666287450272840}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -409,3 +402,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &4585666287450272840
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5556420699536293253}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1eefdcf6919137d4e9d6aa0aac036635, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
