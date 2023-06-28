@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
         waves.Clear();
         currentDiff = 10;
 
-        for (int i = 0; i < 50; i++)
+        for (int i = 0; i < 200; i++)
         {
             var random = Random.Range(1, 5);
 
@@ -48,7 +48,7 @@ public class EnemySpawner : MonoBehaviour
             newWave = GenerateWave(currentDiff - (currentDiff / random), (int)currentTime + Random.Range(1, 6));
             waves.Add(newWave);
             currentTime += newWave.duration + (int)Random.Range(2, 4) * 5;
-            currentDiff += 5 + i * 2;
+            currentDiff += 5 + i;
         }
 
         foreach (var wave in waves)
