@@ -26,6 +26,8 @@ public class UI : MonoBehaviour
     public GameObject deathScreen;
     public TextMeshProUGUI deathText;
     public TextMeshProUGUI scoreText;
+    public AudioSource music;
+    public AudioSource muffledMusic;
 
     [Header("Upgrades")]
 
@@ -62,10 +64,12 @@ public class UI : MonoBehaviour
         if (gamePaused)
         {
             Time.timeScale = 0f;
+            music.mute = true;
         }
         else
         {
             Time.timeScale = 1f;
+            music.mute = false;
         }
 
         playerBulletText.text = string.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);
