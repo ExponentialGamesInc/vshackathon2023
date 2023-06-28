@@ -51,10 +51,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c2362dec1c0e89418b0f126995e2b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attacking: 0
+  chomping: 0
   maxHealth: 300
   health: 0
   speed: 5.4
   damage: 5
+  score: 15
   state: 0
   healthBar: {fileID: 2759864729651492822}
   healthBarBase: {fileID: 5502998739876784738}

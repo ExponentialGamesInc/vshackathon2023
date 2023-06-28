@@ -140,6 +140,7 @@ MonoBehaviour:
   health: 0
   speed: 7
   damage: 3
+  score: 3
   state: 0
   healthBar: {fileID: 2583199552383748262}
   healthBarBase: {fileID: 5462397097409071886}

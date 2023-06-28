@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,6 +22,10 @@ public class Player : MonoBehaviour
     public int maxHealth;
     public int health;
     public int points;
+    public int enemyScore = 0;
+    public int upgrades = 0;
+    public int totalScrap = 0;
+    public DateTime lastDamage;
 
     public int healthUpgradeLevel = -1;
     public List<int> healthUpgrades = new List<int> { 150, 200, 450, 700, 1500};
@@ -43,9 +48,33 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         gun = GetComponentInChildren<Gun>();
         health = maxHealth;
+        lastDamage = DateTime.Now;
+
     }
     private void Update()
     {
+        if (DateTime.Now >= lastDamage.AddSeconds(10))
+        {
+            HealPlayer();
+        }
+
+        if (health <= 0)
+        {
+            UI.gamePaused = true;
+            var ui = FindObjectOfType<UI>();
+            ui.deathScreen.SetActive(true);
+            ui.deathText.text = "You died :/";
+            ui.scoreText.text = string.Format("Score: {0}", (upgrades * ui.count) + enemyScore + totalScrap);
+        }
+        else if (FindObjectOfType<Base>().health <=  0)
+        {
+            UI.gamePaused = true;
+            var ui = FindObjectOfType<UI>();
+            ui.deathScreen.SetActive(true);
+            ui.deathText.text = "Your base was killed :/";
+            ui.scoreText.text = string.Format("Score: {0}", (upgrades * ui.count) + enemyScore + totalScrap);
+        }
+       
         if (!UI.gamePaused)
         {
             movement.x = Input.GetAxisRaw("Horizontal");
@@ -96,5 +125,12 @@ public class Player : MonoBehaviour
         {
             rb.velocity = Vector2.zero;
         }
+    }
+
+    void HealPlayer()
+    {
+        health += (int)(health * 0.1f);
+        health = Mathf.Min(health, maxHealth); // Ensure health doesn't exceed maxHealth
+        lastDamage = DateTime.Now;
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,6 +17,7 @@ public class Enemy : MonoBehaviour
     public int health;
     public float speed;
     public int damage;
+    public int score;
     public EnemyState state = EnemyState.Idle;
 
     public GameObject healthBar;
@@ -50,10 +52,11 @@ public class Enemy : MonoBehaviour
                 particle.transform.position = transform.position;
                 particle.GetComponent<ParticleSystem>().Play();
 
-                for (int i = 0; i < Random.Range(minDrop, maxDrop + 1); i++)
+                FindObjectOfType<Player>().enemyScore += score;
+                for (int i = 0; i < UnityEngine.Random.Range(minDrop, maxDrop + 1); i++)
                 {
                     var newScrap = Instantiate(scrap);
-                    newScrap.transform.position = new Vector3(transform.position.x + Random.Range(-1.0f, 1.0f), transform.position.y + Random.Range(-1.0f, 1.0f), transform.position.z);
+                    newScrap.transform.position = new Vector3(transform.position.x + UnityEngine.Random.Range(-1.0f, 1.0f), transform.position.y + UnityEngine.Random.Range(-1.0f, 1.0f), transform.position.z);
                 }
 
                 Destroy(particle, 3);
@@ -62,7 +65,7 @@ public class Enemy : MonoBehaviour
 
             var hit = Physics2D.OverlapCircle(transform.position, enemyIdleRadius, playerMask.value);
 
-            if (hit == null || Vector3.Distance(transform.position, FindObjectOfType<Player>().gameObject.transform.position) > Vector3.Distance(transform.position, new Vector3()))
+            if (hit == null || Vector3.Distance(transform.position, FindObjectOfType<Player>().transform.position) > Vector3.Distance(transform.position, new Vector3()))
             {
                 state = EnemyState.Idle;
             }
@@ -143,6 +146,7 @@ public class Enemy : MonoBehaviour
             if (Vector3.Distance(transform.position, FindObjectOfType<Player>().transform.position) < 2)
             {
                 FindObjectOfType<Player>().health -= damage;
+                FindObjectOfType<Player>().lastDamage = DateTime.Now;
             }
         }
         

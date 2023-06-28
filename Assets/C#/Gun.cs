@@ -39,6 +39,9 @@ public class Gun : MonoBehaviour
                 transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
 
+            GetComponentInChildren<SpriteRenderer>().flipY = !(angle < 90 && angle > -90);
+
+
             if (Input.GetMouseButton(0) && Time.realtimeSinceStartup - lastFired >= fireDelay && ammo > 0 && !reloading)
             {
                 lastFired = Time.realtimeSinceStartup;

@@ -25,6 +25,7 @@ public class Scrap : MonoBehaviour
             if (distance < 0.1f)
             {
                 target.GetComponent<Player>().scrap += 1;
+                target.GetComponent <Player>().totalScrap += 1;
                 break;
             }
 

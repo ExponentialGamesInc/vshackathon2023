@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class UI : MonoBehaviour
 {
+    public int count = 0;
     public TextMeshProUGUI hitnText;
     public TextMeshProUGUI timerText;
     public TextMeshProUGUI playerBulletText;
@@ -22,6 +23,9 @@ public class UI : MonoBehaviour
     public GameObject pauseMenuUI;
     public GameObject baseMenuUI;
     public TextMeshProUGUI healthText;
+    public GameObject deathScreen;
+    public TextMeshProUGUI deathText;
+    public TextMeshProUGUI scoreText;
 
     [Header("Upgrades")]
 
@@ -100,7 +104,7 @@ public class UI : MonoBehaviour
 
     IEnumerator Timer()
     {
-        int count = 0;
+        count = 0;
         while (true)
         {
             yield return new WaitForSeconds(1);
@@ -166,6 +170,7 @@ public class UI : MonoBehaviour
         playerPlayer.healthUpgradeLevel += 1;
         playerPlayer.maxHealth = playerPlayer.healthUpgrades[playerPlayer.healthUpgradeLevel];
         playerPlayer.health = playerPlayer.maxHealth;
+        playerPlayer.upgrades += 1;
 
         if (playerPlayer.healthUpgradeLevel < 4)
             healthUpgradeText.text = string.Format("{0} -> {1}\nprice: {2}", playerPlayer.maxHealth, playerPlayer.healthUpgrades[playerPlayer.healthUpgradeLevel + 1], prices[playerPlayer.healthUpgradeLevel + 1]);
@@ -185,6 +190,7 @@ public class UI : MonoBehaviour
         playerPlayer.scrap -= price;
         playerPlayer.damageUpgradeLevel += 1;
         playerPlayer.gun.damage = playerPlayer.damageUpgrades[playerPlayer.damageUpgradeLevel];
+        playerPlayer.upgrades += 1;
 
         if (playerPlayer.damageUpgradeLevel < 4) damageUpgradeText.text = string.Format("{0} -> {1}\nprice: {2}", playerPlayer.gun.damage, playerPlayer.damageUpgrades[playerPlayer.damageUpgradeLevel + 1], prices[playerPlayer.damageUpgradeLevel + 1]);
         else damageUpgradeText.text = "Max";
@@ -202,6 +208,7 @@ public class UI : MonoBehaviour
         playerPlayer.scrap -= price;
         playerPlayer.attackDelayUpgradeLevel += 1;
         playerPlayer.gun.fireDelay = playerPlayer.attackDelayUpgrades[playerPlayer.attackDelayUpgradeLevel];
+        playerPlayer.upgrades += 1;
 
         if (playerPlayer.attackDelayUpgradeLevel < 4) attackDelayUpgradeText.text = string.Format("{0} -> {1}\nprice: {2}", playerPlayer.gun.fireDelay, playerPlayer.attackDelayUpgrades[playerPlayer.attackDelayUpgradeLevel + 1], prices[playerPlayer.attackDelayUpgradeLevel + 1]);
         else attackDelayUpgradeText.text = "Max";
