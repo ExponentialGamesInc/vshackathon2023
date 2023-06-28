@@ -27,11 +27,30 @@ public class EnemySpawner : MonoBehaviour
     public float spawnDistance = 15;
     public List<GameObject> enemies = new List<GameObject>();
     public Dictionary<GameObject, int> map = new Dictionary<GameObject, int>();
-    public int currentTime = 0;
+    public float currentTime = 0;
     public int currentDiff = 0;
 
     void Start()
     {
+        map.Add(enemies[0], 1);
+        map.Add(enemies[1], 5);
+        map.Add(enemies[2], 25);
+
+        waves.Clear();
+        currentDiff = 10;
+
+        for (int i = 0; i < 50; i++)
+        {
+            var random = Random.Range(1, 5);
+
+            Wave newWave = GenerateWave(currentDiff / random, (int)currentTime);
+            waves.Add(newWave);
+            newWave = GenerateWave(currentDiff - (currentDiff / random), (int)currentTime + Random.Range(1, 6));
+            waves.Add(newWave);
+            currentTime += newWave.duration + (int)Random.Range(2, 4) * 5;
+            currentDiff += 5 + i * 2;
+        }
+
         foreach (var wave in waves)
         {
             StartCoroutine(SpawnWave(wave));
@@ -63,10 +82,13 @@ public class EnemySpawner : MonoBehaviour
     public Wave GenerateWave(int d, int t)
     {
         int r = 0;
+        if (d == 0)
+            return new Wave(0, 0, 0, enemies[0]);
 
         while (true)
         {
-            r = Random.Range(0, 2);
+            r = Random.Range(0, 3);
+            print(map[enemies[r]] + ", " + d);
             if (map[enemies[r]] < d)
                 break;
         }

@@ -34,6 +34,8 @@ public class Enemy : MonoBehaviour
     public GameObject scrap;
     public int minDrop;
     public int maxDrop;
+
+    public List<AudioClip> enemyAttack = new List<AudioClip>();
     // Start is called before the first frame update
     void Start()
     {
@@ -138,6 +140,8 @@ public class Enemy : MonoBehaviour
             {
                 FindObjectOfType<Base>().health -= damage;
                 FindAnyObjectByType<Player>().totalDamage += damage;
+                GetComponent<AudioSource>().clip = enemyAttack[UnityEngine.Random.Range(0, 2)];
+                GetComponent<AudioSource>().Play();
             }
         }
         chomping = false;
@@ -155,6 +159,8 @@ public class Enemy : MonoBehaviour
                 FindObjectOfType<Player>().health -= damage;
                 FindObjectOfType<Player>().lastDamage = DateTime.Now;
                 FindAnyObjectByType<Player>().totalDamage += damage;
+                GetComponent<AudioSource>().clip = enemyAttack[UnityEngine.Random.Range(0, 2)];
+                GetComponent<AudioSource>().Play();
             }
         }
         

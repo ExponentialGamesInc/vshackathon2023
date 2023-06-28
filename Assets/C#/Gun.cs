@@ -16,6 +16,8 @@ public class Gun : MonoBehaviour
     public bool reloading;
     public int damage = 35;
     public float explodeRadius = 3;
+    public AudioSource shoot;
+    public GameObject flipSpawn;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,13 +48,20 @@ public class Gun : MonoBehaviour
             {
                 lastFired = Time.realtimeSinceStartup;
                 ammo -= 1;
+                shoot.Play();
                 GameObject newBullet = Instantiate(bullet);
                 Rigidbody2D bulletRb = newBullet.GetComponent<Rigidbody2D>();
-                newBullet.transform.position = bulletSpawn.transform.position;
+
+                if (angle < 90 && angle > -90)
+                    newBullet.transform.position = bulletSpawn.transform.position;
+                else
+                    newBullet.transform.position = flipSpawn.transform.position;
                 newBullet.transform.rotation = transform.rotation;
 
                 newBullet.GetComponent<Bullet>().damage = damage;
                 newBullet.GetComponent<Bullet>().explodeRadius = explodeRadius;
+
+
 
                 bulletRb.AddForce(bulletSpeed * (mousePosition - transform.position).normalized, ForceMode2D.Impulse);
             }
