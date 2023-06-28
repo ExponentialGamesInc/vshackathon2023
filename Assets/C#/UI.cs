@@ -65,7 +65,7 @@ public class UI : MonoBehaviour
 
         playerBulletText.text = string.Format("{0}/{1}", playerPlayer.gun.ammo, playerPlayer.gun.maxAmmo);
         healthBar.offsetMax = new Vector2(-(1 - (float)playerPlayer.health / playerPlayer.maxHealth) * healthBarWidth, 0);
-        scrapText.text = string.Format("Scrap: {0}", playerPlayer.scrap);
+        scrapText.text = string.Format("{0}", playerPlayer.scrap);
         healthText.text = string.Format("{0}/{1}", playerPlayer.health, playerPlayer.maxHealth);
 
         PauseMenu();
