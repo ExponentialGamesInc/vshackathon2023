@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     public int enemyScore = 0;
     public int upgrades = 0;
     public int totalScrap = 0;
+    public int totalDamage = 0;
     public DateTime lastDamage;
 
     public int healthUpgradeLevel = -1;
@@ -64,7 +65,7 @@ public class Player : MonoBehaviour
             var ui = FindObjectOfType<UI>();
             ui.deathScreen.SetActive(true);
             ui.deathText.text = "You died :/";
-            ui.scoreText.text = string.Format("Score: {0}", (upgrades * ui.count) + enemyScore + totalScrap);
+            ui.scoreText.text = string.Format("Score: {0}", Mathf.Clamp(((upgrades * ui.count) + enemyScore + totalScrap) - totalDamage, 0, int.MaxValue));
         }
         else if (FindObjectOfType<Base>().health <=  0)
         {
@@ -72,7 +73,7 @@ public class Player : MonoBehaviour
             var ui = FindObjectOfType<UI>();
             ui.deathScreen.SetActive(true);
             ui.deathText.text = "Your base was killed :/";
-            ui.scoreText.text = string.Format("Score: {0}", (upgrades * ui.count) + enemyScore + totalScrap);
+            ui.scoreText.text = string.Format("Score: {0}", Mathf.Clamp(((upgrades * ui.count) + enemyScore + totalScrap) - totalDamage, 0, int.MaxValue));
         }
        
         if (!UI.gamePaused)

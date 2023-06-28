@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 2670853174656030463}
   - component: {fileID: 3328801944751083157}
   - component: {fileID: 3330956317110495139}
+  - component: {fileID: -7135795025582136041}
   m_Layer: 6
   m_Name: Tank Trash
   m_TagString: Enemy
@@ -326,6 +327,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.71405196
+--- !u!114 &-7135795025582136041
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3559556566495145088}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fcd005da8326384eb9be1fbccb4bdcb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  splitEnemy: {fileID: 3119715761003766636, guid: e3bc85d2941ebb24493ec27486c48d3f, type: 3}
+  splitAmmout: 3
 --- !u!1 &7764434259991830788
 GameObject:
   m_ObjectHideFlags: 0

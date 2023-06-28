@@ -15,10 +15,4 @@ public class Splitter : MonoBehaviour
             newEnemy.transform.position = transform.position + new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), 0);
         }
     }
-
-    private void OnDisable()
-    {
-        print("Destroying...");
-        Split();
-    }
 }

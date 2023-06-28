@@ -45,6 +45,7 @@ public class UI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gamePaused = false;
         StartCoroutine(Timer());
         playerPlayer = FindObjectOfType<Player>();
         player = playerPlayer.gameObject;

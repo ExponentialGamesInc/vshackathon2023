@@ -59,6 +59,12 @@ public class Enemy : MonoBehaviour
                     newScrap.transform.position = new Vector3(transform.position.x + UnityEngine.Random.Range(-1.0f, 1.0f), transform.position.y + UnityEngine.Random.Range(-1.0f, 1.0f), transform.position.z);
                 }
 
+                Splitter[] splitters = GetComponents<Splitter>();
+                foreach (Splitter splitter in splitters)
+                {
+                    splitter.Split();
+                }
+
                 Destroy(particle, 3);
                 Destroy(gameObject);
             }
@@ -131,6 +137,7 @@ public class Enemy : MonoBehaviour
             if (Vector3.Distance(transform.position, FindObjectOfType<Base>().transform.position) < 3.2f)
             {
                 FindObjectOfType<Base>().health -= damage;
+                FindAnyObjectByType<Player>().totalDamage += damage;
             }
         }
         chomping = false;
@@ -147,6 +154,7 @@ public class Enemy : MonoBehaviour
             {
                 FindObjectOfType<Player>().health -= damage;
                 FindObjectOfType<Player>().lastDamage = DateTime.Now;
+                FindAnyObjectByType<Player>().totalDamage += damage;
             }
         }
         
