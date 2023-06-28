@@ -44,32 +44,35 @@ public class Enemy : MonoBehaviour
         state = EnemyState.Idle;
     }
 
+    private void Update()
+    {
+        if (health < 1)
+        {
+            var particle = Instantiate(particleSystem.gameObject);
+            particle.transform.position = transform.position;
+            particle.GetComponent<ParticleSystem>().Play();
+
+            FindObjectOfType<Player>().enemyScore += score;
+            for (int i = 0; i < UnityEngine.Random.Range(minDrop, maxDrop + 1); i++)
+            {
+                var newScrap = Instantiate(scrap);
+                newScrap.transform.position = new Vector3(transform.position.x + UnityEngine.Random.Range(-1.0f, 1.0f), transform.position.y + UnityEngine.Random.Range(-1.0f, 1.0f), transform.position.z);
+            }
+
+            Splitter[] splitters = GetComponents<Splitter>();
+            foreach (Splitter splitter in splitters)
+            {
+                splitter.Split();
+            }
+
+            Destroy(particle, 3);
+            Destroy(gameObject);
+        }
+    }
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {   if (!UI.gamePaused)
         {
-            if (health < 1)
-            {
-                var particle = Instantiate(particleSystem.gameObject);
-                particle.transform.position = transform.position;
-                particle.GetComponent<ParticleSystem>().Play();
-
-                FindObjectOfType<Player>().enemyScore += score;
-                for (int i = 0; i < UnityEngine.Random.Range(minDrop, maxDrop + 1); i++)
-                {
-                    var newScrap = Instantiate(scrap);
-                    newScrap.transform.position = new Vector3(transform.position.x + UnityEngine.Random.Range(-1.0f, 1.0f), transform.position.y + UnityEngine.Random.Range(-1.0f, 1.0f), transform.position.z);
-                }
-
-                Splitter[] splitters = GetComponents<Splitter>();
-                foreach (Splitter splitter in splitters)
-                {
-                    splitter.Split();
-                }
-
-                Destroy(particle, 3);
-                Destroy(gameObject);
-            }
 
             var hit = Physics2D.OverlapCircle(transform.position, enemyIdleRadius, playerMask.value);
 
@@ -90,13 +93,13 @@ public class Enemy : MonoBehaviour
 
             if (state == EnemyState.Idle && Vector2.Distance(rigidbody2D.position, new Vector2(0, 0)) > 0)
             {
-                Vector2 newPosition = Vector2.MoveTowards(rigidbody2D.position, new Vector2(0, 0), speed * Time.deltaTime);
+                Vector2 newPosition = Vector2.MoveTowards(rigidbody2D.position, new Vector2(0, 0), speed * Time.fixedDeltaTime);
                 rigidbody2D.MovePosition(newPosition);
             }
 
             if (state == EnemyState.Chase)
             {
-                Vector2 newPosition = Vector2.MoveTowards(rigidbody2D.position, FindObjectOfType<Player>().GetComponent<Player>().transform.position, speed * Time.deltaTime);
+                Vector2 newPosition = Vector2.MoveTowards(rigidbody2D.position, FindObjectOfType<Player>().GetComponent<Player>().transform.position, speed * Time.fixedDeltaTime);
                 rigidbody2D.MovePosition(newPosition);
             }
         }

@@ -139,7 +139,7 @@ MonoBehaviour:
   chomping: 0
   maxHealth: 70
   health: 0
-  speed: 7
+  speed: 2
   damage: 3
   score: 3
   state: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   enemyMask:
     serializedVersion: 2
     m_Bits: 64
-  scrap: {fileID: 3835607459236870881, guid: 76b8372f44fbe484198e97c3ff7cd32e, type: 3}
+  scrap: {fileID: 203896850857457045, guid: 76b8372f44fbe484198e97c3ff7cd32e, type: 3}
   minDrop: 1
   maxDrop: 3
   enemyAttack:
