@@ -9,13 +9,26 @@ public class Wave
     public float duration;
     public int enemyCount;
     public GameObject Enemy;
+
+    public Wave(float startTime, float duration, int enemyCount, GameObject Enemy)
+    {
+        this.startTime = startTime;
+        this.duration = duration;
+        this.enemyCount = enemyCount;
+        this.Enemy = Enemy;
+    }
 }
+
 
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject player;
     public List<Wave> waves = new List<Wave>();
     public float spawnDistance = 15;
+    public List<GameObject> enemies = new List<GameObject>();
+    public Dictionary<GameObject, int> map = new Dictionary<GameObject, int>();
+    public int currentTime = 0;
+    public int currentDiff = 0;
 
     void Start()
     {
@@ -45,5 +58,19 @@ public class EnemySpawner : MonoBehaviour
 
         var newEnemy = Instantiate(enemy);
         newEnemy.transform.position = new Vector3(dx, dy, 0) * spawnDistance + player.transform.position;
+    }
+
+    public Wave GenerateWave(int d, int t)
+    {
+        int r = 0;
+
+        while (true)
+        {
+            r = Random.Range(0, 2);
+            if (map[enemies[r]] < d)
+                break;
+        }
+
+        return new Wave(t, Random.Range(2, 5) * 5f, Mathf.RoundToInt((float)d/ map[enemies[r]]), enemies[r]);
     }
 }
